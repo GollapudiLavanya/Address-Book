@@ -6,31 +6,82 @@ namespace AddressBookSystem
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" Welcome to Address Book Program \n");
+            Console.WriteLine(" Welcome to Address Book Program ");
 
             // Object of AdressBook is Created.....
             AddressBook addressBook = new AddressBook();
-
-            // Obtions are Show to User.......
-            Console.WriteLine(" Options");
-            Console.WriteLine(" 1. Add a new Contact");
-
-            // Reads the Option.....
-            Console.Write("\n Select Options : ");
-            int option = Convert.ToInt32(Console.ReadLine());
-
-            switch (option)
+            bool stop = false;
+            while (!stop)
             {
-                case 1:
-                    Contact contact = new Contact();   // New Contact Object is Created ....
-                    Read_Contact(contact);             //method is called for input of contact details....
-                    addressBook.Add_Contacts(contact);  // contact details is added to a List...
-                    break;
-                default:
-                    break;
+                // Obtions are Show to User.......
+                Console.WriteLine("\n Options");
+                Console.WriteLine(" 1. Add a new Contact");
+                Console.WriteLine(" 2.Edit Contact ");
+                Console.WriteLine(" 3.Delete Contact ");
+                Console.WriteLine(" 4.Number of Contacts");
+                Console.WriteLine(" 0.Exit ");
+
+                // Reads the Option.....
+                Console.Write("\n Select Options : ");
+                int option = Convert.ToInt32(Console.ReadLine());
+
+                switch (option)
+                {
+                    case 1:
+                        Contact contact = new Contact();   // New Contact Object is Created ....
+                        Read_Contact(contact);             //method is called for input of contact details....
+                        addressBook.Add_Contacts(contact);  // contact details is added to a List...
+                        break;
+                    case 2:
+                        //  PhoneNumber of Contact to be Edit is given as input.......
+                        Console.Write("Enter the Phone Number of Contact you wish to Edit : ");
+                        long phoneNumber = long.Parse(Console.ReadLine());
+                        //Index of the Contact Object is given with the help of PhoneNumber......
+                        int index = addressBook.FindByPhoneNumber((int)phoneNumber);
+                        if (index == -1)
+                        {
+                            Console.WriteLine("\n No Contact Exists With Following Phone Number\n");
+                        }
+                        else
+                        {
+                            Contact contact2 = new Contact();
+                            Read_Contact(contact2);
+                            addressBook.ContactList[index] = contact2;
+                            Console.WriteLine("Contact Updated Successfully");
+                        }
+                        break;
+
+                    case 3:
+                        //  First Name of Contact to be deleted is given as input.......
+                        Console.Write("Enter the First Name of Contact you wish to delete : ");
+                        string firstname = Console.ReadLine();
+                        // Index of the Contact Object is given with the help of FirstName......
+                        int contact_id = addressBook.FindByFirstName(firstname);
+                        if (contact_id == -1)
+                        {
+                            Console.WriteLine("\n No Contact Exists with Following First Name\n");
+                        }
+                        else
+                        {
+                            // method to delete the contact is called.....
+                            addressBook.DeleteContact(contact_id);
+                            Console.WriteLine("Contact Deleted Successfully");
+                        }
+                        break;
+
+                    case 4:
+                        // Number of Contacts is give......(count)...
+                        Console.WriteLine("\n Number of Contacts : " + addressBook.ContactList.Count);
+                        break;
+
+                    case 0:
+                        stop = true;
+                        break;
+                    default:
+                        break;
+                }
             }
-            // Number of Contacts is give......(count)...
-            Console.WriteLine("\n Number of Contacts : " + addressBook.ContactList.Count);
+
         }
 
         public static void Read_Contact(Contact contact)

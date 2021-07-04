@@ -6,7 +6,7 @@ namespace AddressBookSystem
 {
     class AddressBook
     {
-            // List for (Contact) class objects is created.....
+        // List for (Contact) class objects is created.....
         public List<Contact> ContactList;
         public AddressBook()
         {
@@ -21,6 +21,17 @@ namespace AddressBookSystem
         {
             // Returns the index of Contact....
             return this.ContactList.FindIndex(contact => contact.PhoneNumber.Equals(number));
+
+        }
+        //Find Contact Object Index with help of  given FirstName......
+        public int FindByFirstName(string firstName)
+        {
+            return this.ContactList.FindIndex(contact => contact.FirstName.Equals(firstName));
+        }
+        //Delete Contact with help of Index.......
+        public void DeleteContact(int index)
+        {
+            this.ContactList.RemoveAt(index);
         }
     }
 }
