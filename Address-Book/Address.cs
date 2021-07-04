@@ -8,14 +8,17 @@ namespace AddressBookSystem
     {
         // List for (Contact) class objects is created.....
         public List<Contact> ContactList;
+        public Dictionary<string, Contact> ContactMap;
         public AddressBook()
         {
             this.ContactList = new List<Contact>();
+            ContactMap = new Dictionary<string, Contact>();
         }
-        public void Add_Contacts(Contact contact)
+        public void Add_Contacts(Contact contact, string name)
         {
             // add class objects in list c.....
             this.ContactList.Add(contact);
+            ContactMap.Add(name, contact);
         }
         public int FindByPhoneNumber(int number)
         {
@@ -33,5 +36,6 @@ namespace AddressBookSystem
         {
             this.ContactList.RemoveAt(index);
         }
+
     }
 }
