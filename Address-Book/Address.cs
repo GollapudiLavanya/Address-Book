@@ -6,7 +6,7 @@ namespace AddressBookSystem
 {
     class AddressBook
     {
-        // List for (Contact) class objects is created.....
+            // List for (Contact) class objects is created.....
         public List<Contact> ContactList;
         public AddressBook()
         {
@@ -16,6 +16,11 @@ namespace AddressBookSystem
         {
             // add class objects in list c.....
             this.ContactList.Add(contact);
+        }
+        public int FindByPhoneNumber(int number)
+        {
+            // Returns the index of Contact....
+            return this.ContactList.FindIndex(contact => contact.PhoneNumber.Equals(number));
         }
     }
 }
