@@ -3,13 +3,14 @@ using System.Globalization;
 using System.IO;
 using CsvHelper;
 using Newtonsoft.Json;
+
 namespace AddressBook
 {
     class FileOperation
     {
         public static void ReadFromFile(string bookName)
         {
-            string filePath = $"C://Users//dell//source//repos//Address-Book//Address-Book//FileIO//{bookName}.txt";
+            string filePath = $"D://tvstraining//AddressBook//AddressBook//FileIO//{bookName}.txt";
             string lines = File.ReadAllText(filePath);
             Console.WriteLine(lines);
         }
@@ -17,7 +18,7 @@ namespace AddressBook
         {
             try
             {
-                string filePath = $"C://Users//dell//source//repos//Address-Book//Address-Book//BinaryFile//{bookName}.csv";
+                string filePath = $"D://tvstraining//AddressBook//AddressBook//BinaryFile//{bookName}.csv";
                 StreamWriter sw = new StreamWriter(filePath);
                 foreach (ContactDetails list in contactBook.contactList)
                 {
@@ -35,13 +36,13 @@ namespace AddressBook
         //Read Or Write into CSV File
         public static void ReadFromCSVFile(string bookName)
         {
-            string filePath = $"C://Users//dell//source//repos//Address-Book//Address-Book//CSVFile//{bookName}.csv";
+            string filePath = $"D://tvstraining//AddressBook//AddressBook//CSVFile//{bookName}.csv";
             string lines = File.ReadAllText(filePath);
             Console.WriteLine(lines);
         }
         public static void WriteIntoCSVFile(string bookName, ContactBook contactBook)
         {
-            string path = ($"C://Users//dell//source//repos//Address-Book//Address-Book//CSVFile//{bookName}.csv");
+            string path = ($"D://tvstraining//AddressBook//AddressBook//CSVFile//{bookName}.csv");
 
             using (StreamWriter writer = new StreamWriter(path))
             {
@@ -50,6 +51,19 @@ namespace AddressBook
                     csvWriter.WriteField(contactBook.contactList);
                 }
             }
+        }
+        //Read Or Write into Json File
+        public static void ReadFromJSONFile(string bookName)
+        {
+            string filePath = $"D://tvstraining//AddressBook//AddressBook//JSONFile//{bookName}.json";
+            string lines = File.ReadAllText(filePath);
+            Console.WriteLine(lines);
+        }
+        public static void WriteIntoJSONFile(string bookName, ContactBook contactBook)
+        {
+            string path = ($"D://tvstraining//AddressBook//AddressBook//JSONFile//{bookName}.json");
+            string res = JsonConvert.SerializeObject(contactBook.contactList);
+            File.WriteAllText(path, res);
         }
     }
 }
